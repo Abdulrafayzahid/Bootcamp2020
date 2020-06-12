@@ -1,0 +1,25 @@
+name: Jekyll site CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    # install node using  cmd
+     - name: Install Node
+      uses: actions/setup-node@v2-beta
+      with: 
+        node-version: 12
+    - name: Install Surge
+      run: npm install -g surge
+    - name: Run Surge
+      run: surge ./ bootcamp-1-2020-06.surge.sh --token ${{secrets.SURGE_TOKEN}}
